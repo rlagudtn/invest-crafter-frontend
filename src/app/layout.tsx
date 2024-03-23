@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import Navbar from "@/components/Navbar";
+import clsx from "clsx";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,9 +15,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const className = "max-w-6xl w-full px-3 md:px-4 lg:py-5";
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={clsx(inter.className, "flex flex-col items-center")}>
+        <Navbar className={clsx(className, "bg-red-100")} />
+        <div className={className}>{children}</div>
+      </body>
     </html>
   );
 }
