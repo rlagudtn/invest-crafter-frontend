@@ -1,4 +1,4 @@
-export const data={
+export const companyList={
     "status": "success",
     "data": {
         "content": [
