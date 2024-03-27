@@ -5,16 +5,9 @@ import { ICompanyWithKeyIndicator } from "@/types/company";
 import { IApiResponse } from "@/types/customTypes";
 import { companyList } from "./data";
 
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { SearchInput } from "@/components/SearchInput";
+import { TablePagination } from "./TablePagination";
+import { useState } from "react";
 
 const transformToCompany = (
   companyWithIndicator: ICompanyWithKeyIndicator
@@ -35,7 +28,7 @@ const transformToCompany = (
 export const CompanyList = () => {
   // const data = await getData();
   const data: Company[] = companyList.data.content.map(transformToCompany);
-
+  const [page, setPage] = useState(1);
   return (
     <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24 flex flex-col items-center space-y-5 sm:space-y-8 md:space-y-10 lg:space-y-12">
       <div className="w-full flex flex-col items-center space-y-4 md:space-y-8">
@@ -51,22 +44,12 @@ export const CompanyList = () => {
 
       <div className="w-full flex flex-col items-center space-y-4 md:space-y-8">
         <DataTable columns={columns} data={data} />
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext href="#" />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <TablePagination
+          page={page}
+          totalPages={21}
+          size={30}
+          setPage={setPage}
+        />
       </div>
     </div>
   );
