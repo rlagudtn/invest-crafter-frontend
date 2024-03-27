@@ -18,7 +18,6 @@ interface ITablePaginationProps {
 }
 export const TablePagination = ({
   page,
-  size,
   totalPages,
   setPage,
 }: ITablePaginationProps) => {

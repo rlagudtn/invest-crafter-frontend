@@ -7,7 +7,7 @@ import { companyList } from "./data";
 
 import { SearchInput } from "@/components/SearchInput";
 import { TablePagination } from "./TablePagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const transformToCompany = (
   companyWithIndicator: ICompanyWithKeyIndicator
@@ -16,19 +16,24 @@ const transformToCompany = (
   ...companyWithIndicator.keyIndicator,
 });
 
-// async function getData(): Promise<Company[]> {
-//   // Fetch data from your API here.
-//   // const res: any = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/`);
-//   // const data: IApiResponse<ICompanyWithKeyIndicator> = await res.json();
-//   const companies: Company[] = companyList.data.content.map(transformToCompany);
-
-//   return companies;
-// }
-
 export const CompanyList = () => {
   // const data = await getData();
-  const data: Company[] = companyList.data.content.map(transformToCompany);
+  // const data: Company[] = companyList.data.content.map(transformToCompany);
   const [page, setPage] = useState(1);
+  const [size, setSize] = useState(20);
+  const [companies, setCompanies] = useState<Company[]>([]);
+
+  useEffect(() => {
+    async function getData(page: number, size: number) {
+      const res: any = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api?page=${page}&size=${size}`
+      );
+      const data: IApiResponse<ICompanyWithKeyIndicator> = await res.json();
+      // const companies: Company[] = companyList.data.content.map(transformToCompany);
+      setCompanies(data.data.content.map(transformToCompany));
+    }
+    getData(page, size);
+  }, [page]);
   return (
     <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24 flex flex-col items-center space-y-5 sm:space-y-8 md:space-y-10 lg:space-y-12">
       <div className="w-full flex flex-col items-center space-y-4 md:space-y-8">
@@ -43,7 +48,7 @@ export const CompanyList = () => {
       </div>
 
       <div className="w-full flex flex-col items-center space-y-4 md:space-y-8">
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={companies} />
         <TablePagination
           page={page}
           totalPages={21}

@@ -1,11 +1,12 @@
 import {getCompaniesWithKeyIndicator} from "@/services/stocks"
+import { NextRequest } from "next/server";
 
-export async function GET() {
-  const url: string = `${process.env.NEXT_PUBLIC_SPRING_BACKEND_URL}/stock?page=5&size=2`;
-  console.log('url >>> ',url)
-  const companies = await getCompaniesWithKeyIndicator();
-  companies.data.content.forEach((element:any) => {
-    console.log(element)
-  });
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const page:number = Number(searchParams.get('page')) ;
+  const size: number = Number(searchParams.get('size'));
+  
+  const companies = await getCompaniesWithKeyIndicator(page,size);
+  
   return Response.json(companies);
 }
