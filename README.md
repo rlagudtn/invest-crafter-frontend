@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# invest-crafter-frontend(진행중)
+---
+미국 주식 가치투자를 위한 핵심 지표 제공 서비스
+<br/>
+<br/>
 
-## Getting Started
+### 서비스 소개
+국내 주식 및 부동산 시장의 어려움으로 인해 미국 주식 시장에 관심이 증가하고 있습니다. 이러한 상황에 맞춰, 'Invest Crafter'는 투자자들이 ROE, PEG 같은 중요한 투자 지표를 활용해 미국 주식 시장의 기업 가치를 쉽게 분석할 수 있도록 도와줍니다.
+<br/>
+<br/>
 
-First, run the development server:
+### 주요 기능
+1. 미국 기업 핵심 지표 리스트 및 정렬,필터 기능 제공
+2. 관심 기업 북마크
+<br/>
+<br/>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### UI
+![홈 화면](https://github.com/rlagudtn/invest-crafter-frontend/assets/34295144/8c0a88de-7e56-4bc1-915d-bc4b32b49f86)
