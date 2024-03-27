@@ -6,8 +6,8 @@ import { IApiResponse } from "@/types/customTypes";
 import { companyList } from "./data";
 
 import { SearchInput } from "@/components/SearchInput";
-import { TablePagination } from "./TablePagination";
 import { useEffect, useState } from "react";
+import { TablePagination } from "./tablePagination";
 
 const transformToCompany = (
   companyWithIndicator: ICompanyWithKeyIndicator
