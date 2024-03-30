@@ -8,6 +8,7 @@ import { companyList } from "./data";
 import { SearchInput } from "@/components/SearchInput";
 import { useEffect, useState } from "react";
 import { TablePagination } from "./tablePagination";
+import { TableFilter } from "./tableFilter";
 
 const transformToCompany = (
   companyWithIndicator: ICompanyWithKeyIndicator
@@ -20,7 +21,7 @@ export const CompanyList = () => {
   // const data = await getData();
   // const data: Company[] = companyList.data.content.map(transformToCompany);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(20);
+  const [size, setSize] = useState(10);
   const [companies, setCompanies] = useState<Company[]>([]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export const CompanyList = () => {
     getData(page, size);
   }, [page]);
   return (
-    <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24 flex flex-col items-center space-y-5 sm:space-y-8 md:space-y-10 lg:space-y-12">
+    <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24 flex flex-col items-center space-y-5 sm:space-y-8 md:space-y-20 lg:space-y-20">
       <div className="w-full flex flex-col items-center space-y-4 md:space-y-8">
         <div className="text-2xl md:text-3xl lg:text-4xl font-bold">
           Invest Crafter
@@ -48,6 +49,7 @@ export const CompanyList = () => {
       </div>
 
       <div className="w-full flex flex-col items-center space-y-4 md:space-y-8">
+        <TableFilter />
         <DataTable columns={columns} data={companies} />
         <TablePagination
           page={page}

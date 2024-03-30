@@ -15,11 +15,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const className = "max-w-6xl w-full px-4 md:px-6 lg:px-10";
+  const className = "max-w-screen-2xl w-full px-4 md:px-6 lg:px-10";
 
   return (
     <html lang="en">
-      <body className={clsx(inter.className, "flex flex-col items-center ")}>
+      <body
+        className={clsx(inter.className, "flex flex-col items-center mb-40")}
+      >
         <Navbar className={clsx(className, "bg-red-100")} />
         <div className={className}>{children}</div>
       </body>

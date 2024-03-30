@@ -30,3 +30,8 @@ export interface IApiResponse<T> {
   };
   message: string | null;
 }
+
+export interface IFrameItem {
+  value: string;
+  label: string;
+}
