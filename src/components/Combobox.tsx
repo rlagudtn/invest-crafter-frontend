@@ -36,9 +36,6 @@ export function Combobox({
 
   // Render function for the dynamic icon, allowing for customization or default
   const renderIcon = () => {
-    // if (IconComponent) {
-    //   return <IconComponent className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
-    // }
     return <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
   };
 

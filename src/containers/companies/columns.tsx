@@ -26,7 +26,7 @@ export interface Company {
   financingActivitiesCashFlow: number;
 }
 
-export const columns: ColumnDef<Company>[] = [
+export const tableColumns: ColumnDef<Company>[] = [
   {
     accessorKey: "name",
     header: "기업명",
