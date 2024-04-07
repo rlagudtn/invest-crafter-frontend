@@ -37,7 +37,7 @@ export const tableColumns: ColumnDef<Company>[] = [
   },
   {
     accessorKey: "industry",
-    header: "Industry",
+    header: "산업/업종",
   },
   {
     accessorKey: "exchange",
