@@ -2,14 +2,14 @@ import { getCompaniesWithKeyIndicator } from "@/services/stocks";
 import { Company, tableColumns } from "./columns";
 import { DataTable } from "./dataTable";
 import { ICompanyWithKeyIndicator } from "@/types/company";
-import { IApiResponse } from "@/types/customTypes";
+import { IApiResponse, IFilterItem, IFrameItem } from "@/types/customTypes";
 import { companyList } from "./data";
 
 import { SearchInput } from "@/components/SearchInput";
 import { useEffect, useState } from "react";
 import { TablePagination } from "./tablePagination";
 import { TableFilter } from "./tableFilter";
-import { columns } from "./framework";
+import { columns, filterItems } from "./framework";
 const transformToCompany = (
   companyWithIndicator: ICompanyWithKeyIndicator
 ): Company => ({
@@ -26,7 +26,17 @@ export const CompanyList = () => {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [direction, setDirection] = useState<string>("asc");
   const [columnsMap, setColumnsMap] = useState<Map<string, string>>(new Map());
-
+  const [filters, SetFilters] = useState<IFilterItem[]>([
+    {
+      value: "peg",
+      label: "PEG",
+      minLabel: "minPeg",
+      maxLabel: "maxPeg",
+      min: 10,
+      used: true,
+    },
+  ]);
+  const [filterColList, setFilterColList] = useState<IFilterItem[]>([]);
   useEffect(() => {
     let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api?page=${page}&size=${size}`;
     sortKey !== null ? (url += `&sort=${sortKey},${direction}`) : "";
@@ -45,6 +55,12 @@ export const CompanyList = () => {
       updateMap.set(item.value, item.label);
     });
     setColumnsMap(updateMap);
+    setFilterColList(
+      filterItems.map((item) => ({
+        ...item,
+        used: false,
+      }))
+    );
   }, []);
   return (
     <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24 flex flex-col items-center space-y-5 sm:space-y-8 md:space-y-20 lg:space-y-20">
@@ -63,7 +79,12 @@ export const CompanyList = () => {
         <TableFilter
           columnsMap={columnsMap}
           setSortKey={setSortKey}
+          direction={direction}
           setDirection={setDirection}
+          filters={filters}
+          setFilters={SetFilters}
+          filterColList={filterColList}
+          setFilterColList={setFilterColList}
         />
         <DataTable columns={tableColumns} data={companies} />
         <TablePagination

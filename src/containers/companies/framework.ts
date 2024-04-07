@@ -1,4 +1,4 @@
-import { IFrameItem } from "@/types/customTypes";
+import { IFilterItem, IFrameItem } from "@/types/customTypes";
 
 export const columns: IFrameItem[] = [
   {
@@ -80,6 +80,99 @@ export const columns: IFrameItem[] = [
   {
     value: "financingActivitiesCashFlow",
     label: "재무활동 현금흐름",
+  },
+];
+
+export const filterItems: IFilterItem[] = [
+  {
+    value: "peg",
+    label: "PEG",
+    minLabel: "minPeg",
+    maxLabel: "maxPeg"
+  },
+  {
+    value: "debtRatio",
+    label: "부채비율",
+    minLabel: "minDebtRatio",
+    maxLabel: "maxDebtRatio"
+  },
+  {
+    value: "roeRecent1yr",
+    label: "최근 1년 ROE",
+    minLabel: "minRoeRecent1yr",
+    maxLabel: "maxRoeRecent1yr"
+  },
+  {
+    value: "roeRecent2yr",
+    label: "최근 2년 ROE",
+    minLabel: "minRoeRecent2yr",
+    maxLabel: "maxRoeRecent2yr"
+  },
+  {
+    value: "roeRecent3yr",
+    label: "최근 3년 ROE",
+    minLabel: "minRoeRecent3yr",
+    maxLabel: "maxRoeRecent3yr"
+  },
+  {
+    value: "opmRecent1yr",
+    label: "최근 1년 OPM",
+    minLabel: "minOpmRecent1yr",
+    maxLabel: "maxOpmRecent1yr"
+  },
+  {
+    value: "opmRecent2yr",
+    label: "최근 2년 OPM",
+    minLabel: "minOpmRecent2yr",
+    maxLabel: "maxOpmRecent2yr"
+  },
+  {
+    value: "opmRecent3yr",
+    label: "최근 3년 OPM",
+    minLabel: "minOpmRecent3yr",
+    maxLabel: "maxOpmRecent3yr"
+  },
+  {
+    value: "freeCashFlow",
+    label: "잉여현금흐름",
+    minLabel: "minFreeCashFlow",
+    maxLabel: "maxFreeCashFlow"
+  },
+  {
+    value: "dividendYield",
+    label: "배당수익률",
+    minLabel: "minDividendYield",
+    maxLabel: "maxDividendYield"
+  },
+  {
+    value: "pbr",
+    label: "PBR",
+    minLabel: "minPbr",
+    maxLabel: "maxPbr"
+  },
+  {
+    value: "per",
+    label: "PER",
+    minLabel: "minPer",
+    maxLabel: "maxPer"
+  },
+  {
+    value: "operatingActivitiesCashFlow",
+    label: "영업활동 현금흐름",
+    minLabel: "minOperatingActivitiesCashFlow",
+    maxLabel: "maxOperatingActivitiesCashFlow"
+  },
+  {
+    value: "investingActivitiesCashFlow",
+    label: "투자활동 현금흐름",
+    minLabel: "minInvestingActivitiesCashFlow",
+    maxLabel: "maxInvestingActivitiesCashFlow"
+  },
+  {
+    value: "financingActivitiesCashFlow",
+    label: "재무활동 현금흐름",
+    minLabel: "minFinancingActivitiesCashFlow",
+    maxLabel: "maxFinancingActivitiesCashFlow"
   },
 ];
 

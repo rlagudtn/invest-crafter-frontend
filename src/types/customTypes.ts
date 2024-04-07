@@ -35,3 +35,13 @@ export interface IFrameItem {
   value: string;
   label: string;
 }
+
+export interface IFilterItem {
+  value: string;
+  label: string;
+  minLabel: string;
+  maxLabel: string;
+  min?: number;
+  max?: number;
+  used?: boolean;
+}

@@ -26,7 +26,6 @@ import { useState } from "react";
 import { IFrameItem } from "@/types/customTypes";
 
 interface ISortComboProps {
-  inputPlaceholder?: string;
   frameworks: IFrameItem[] | undefined;
   sortKey?: string | undefined;
   direction?: string;
@@ -41,6 +40,7 @@ export function SortCombobox({
   columnsMap,
   setSortKey,
   setDirection,
+  direction,
   defaultPlaceholder = "옵션을 선택해주세요",
 }: ISortComboProps) {
   const [targetKey, setTargetKey] = useState(+new Date());
@@ -51,9 +51,9 @@ export function SortCombobox({
   const [placeholder, setPlaceholder] = useState<string>(defaultPlaceholder);
   let counter = 0;
   const renderIcon = () => {
-    if (target !== "" && dir === "asc") {
+    if (direction !== "" && direction === "asc") {
       return <ArrowUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
-    } else if (target !== "" && dir === "desc") {
+    } else if (direction !== "" && direction === "desc") {
       return <ArrowDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
     }
     return <ArrowDownUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
@@ -72,10 +72,11 @@ export function SortCombobox({
       setPlaceholder(item);
     }
   };
-  const handleResetSort = () => {
+  const handleRemoveSort = () => {
     setSortKey(null);
     setTarget("");
-    setDir("desc");
+    setDir("asc");
+    setDirection("asc");
 
     // 현재 시간 기반의 키에 카운터 값을 추가하여 중복 방지
     const uniqueTimestamp = +new Date() + counter;
@@ -90,7 +91,7 @@ export function SortCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[160px] justify-between"
+          className=" justify-between"
         >
           {placeholder}
           {renderIcon()}
@@ -102,7 +103,7 @@ export function SortCombobox({
             <SelectTrigger className="w-[280px]">
               <SelectValue
                 placeholder={
-                  target
+                  target !== ""
                     ? frameworks?.find(
                         (framework) => framework.value === target
                       )?.label
@@ -144,7 +145,7 @@ export function SortCombobox({
           </Button>
           <Button
             className="w-full py-0 justify-start bg-transparent text-black hover:text-white hover:bg-red-500"
-            onClick={handleResetSort}
+            onClick={handleRemoveSort}
           >
             <TrashIcon className="h-5 w-5 shrink-0 opacity-50 mr-1" />
             정렬 제거
