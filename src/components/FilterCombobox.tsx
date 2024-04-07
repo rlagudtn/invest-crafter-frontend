@@ -62,7 +62,6 @@ export function FilterCombobox({
         }
         return item;
       });
-      console.log(colList);
       setFilterColList(colList);
       setOpen(false);
     }

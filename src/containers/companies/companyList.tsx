@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { TablePagination } from "./tablePagination";
 import { TableFilter } from "./tableFilter";
 import { filterItems } from "./framework";
+
 const transformToCompany = (
   companyWithIndicator: ICompanyWithKeyIndicator
 ): Company => ({
@@ -23,26 +24,33 @@ const transformToCompany = (
 });
 
 export const CompanyList = () => {
-  // const data = await getData();
-  // const data: Company[] = companyList.data.content.map(transformToCompany);
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
   const [companies, setCompanies] = useState<Company[]>([]);
   const [sort, setSort] = useState<ISortItem | undefined>();
   const [filters, SetFilters] = useState<IFilterItem[]>([]);
   const [filterColList, setFilterColList] = useState<IFilterItem[]>([]);
+
+  // page, sort, filter 변경 시 fetch 실행
   useEffect(() => {
-    let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api?page=${page}&size=${size}`;
+    let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/companies?page=${page}&size=${size}`;
+
+    //정렬 및 필터 query 추가
     sort !== undefined ? (url += `&sort=${sort.value},${sort.dir}`) : "";
-    async function getData(page: number, size: number) {
+    filters.map((item) => {
+      if (item.min) url += `&${item.minLabel}=${item.min}`;
+      if (item.max) url += `&${item.maxLabel}=${item.max}`;
+    });
+
+    async function getData() {
       const res: any = await fetch(url);
       const data: IApiResponse<ICompanyWithKeyIndicator> = await res.json();
-      // const companies: Company[] = companyList.data.content.map(transformToCompany);
       setCompanies(data.data.content.map(transformToCompany));
     }
-    getData(page, size);
-  }, [page, sort]);
+    getData();
+  }, [page, sort, filters]);
 
+  // 초기 필터 가능한 열 목록 설정
   useEffect(() => {
     setFilterColList(
       filterItems.map((item) => ({
@@ -51,6 +59,7 @@ export const CompanyList = () => {
       }))
     );
   }, []);
+
   return (
     <div className="mt-8 sm:mt-12 md:mt-16 lg:mt-24 flex flex-col items-center space-y-5 sm:space-y-8 md:space-y-20 lg:space-y-20">
       <div className="w-full flex flex-col items-center space-y-4 md:space-y-8">

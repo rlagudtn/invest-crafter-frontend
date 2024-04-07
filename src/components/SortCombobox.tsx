@@ -54,7 +54,6 @@ export function SortCombobox({
   const handleSortBtnClick = () => {
     if (selected !== undefined) {
       const dir = selected.dir === undefined ? "asc" : selected.dir;
-      console.log(dir);
       setSort({ ...selected, dir });
     }
   };
