@@ -1,26 +1,7 @@
-import { IFilterItem, IFrameItem } from "@/types/customTypes";
+import { IFilterItem, IFrameItem, ISortItem } from "@/types/customTypes";
 
-export const columns: IFrameItem[] = [
-  {
-    value: "name",
-    label: "기업명",
-  },
-  {
-    value: "symbol",
-    label: "심볼",
-  },
-  {
-    value: "industry",
-    label: "Industry",
-  },
-  {
-    value: "exchange",
-    label: "거래소",
-  },
-  {
-    value: "calendarYear",
-    label: "연도",
-  },
+export const sortItems: ISortItem[] = [
+  
   {
     value: "peg",
     label: "PEG",

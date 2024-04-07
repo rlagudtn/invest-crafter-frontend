@@ -36,6 +36,13 @@ export interface IFrameItem {
   label: string;
 }
 
+export interface ISortItem{
+  value: string;
+  label: string;
+  dir?: "asc" | "desc";
+
+}
+
 export interface IFilterItem {
   value: string;
   label: string;

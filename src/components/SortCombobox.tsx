@@ -5,6 +5,7 @@ import {
   ArrowUp,
   PlusIcon,
   TrashIcon,
+  UndoIcon,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -23,67 +24,53 @@ import {
 } from "@/components/ui/popover";
 
 import { useState } from "react";
-import { IFrameItem } from "@/types/customTypes";
+import { IFrameItem, ISortItem } from "@/types/customTypes";
+import { sortItems } from "@/containers/companies/framework";
 
 interface ISortComboProps {
-  frameworks: IFrameItem[] | undefined;
-  sortKey?: string | undefined;
-  direction?: string;
-  columnsMap: Map<string, string>;
-  setSortKey: React.Dispatch<React.SetStateAction<string | null>>;
-  setDirection: React.Dispatch<React.SetStateAction<string>>;
+  sort?: ISortItem;
+  setSort: React.Dispatch<React.SetStateAction<ISortItem | undefined>>;
   defaultPlaceholder?: string;
-  // IconComponent?: IconType; // Optional: Custom icon component
 }
 export function SortCombobox({
-  frameworks,
-  columnsMap,
-  setSortKey,
-  setDirection,
-  direction,
+  sort,
+  setSort,
   defaultPlaceholder = "옵션을 선택해주세요",
 }: ISortComboProps) {
-  const [targetKey, setTargetKey] = useState(+new Date());
-  const [dirKey, setDirKey] = useState(+new Date() + 1);
+  const [selected, setSelected] = useState<ISortItem | undefined>(sort);
   const [open, setOpen] = useState<boolean>(false);
-  const [target, setTarget] = useState<string>("");
-  const [dir, setDir] = useState<string>("asc");
-  const [placeholder, setPlaceholder] = useState<string>(defaultPlaceholder);
+  const [targetKey, setTargetKey] = useState(+new Date());
+  const [dirKey, setPopoverDirKey] = useState(+new Date() + 1);
   let counter = 0;
+
   const renderIcon = () => {
-    if (direction !== "" && direction === "asc") {
+    if (sort !== undefined && sort.dir === "asc") {
       return <ArrowUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
-    } else if (direction !== "" && direction === "desc") {
+    } else if (sort !== undefined && sort.dir === "desc") {
       return <ArrowDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
     }
     return <ArrowDownUp className="ml-2 h-4 w-4 shrink-0 opacity-50" />;
   };
-  const handleFrameworkChange = (newValue: string) => {
-    setTarget(newValue);
-  };
-  const handleDirectionChange = (newValue: string) => {
-    setDir(newValue);
-  };
-  const handleSortClick = () => {
-    if (target !== "" && target !== undefined) {
-      setSortKey(target);
-      setDirection(dir);
-      const item = columnsMap.get(target) || "error";
-      setPlaceholder(item);
+  const handleSortBtnClick = () => {
+    if (selected !== undefined) {
+      const dir = selected.dir === undefined ? "asc" : selected.dir;
+      console.log(dir);
+      setSort({ ...selected, dir });
     }
   };
-  const handleRemoveSort = () => {
-    setSortKey(null);
-    setTarget("");
-    setDir("asc");
-    setDirection("asc");
+  const handleRemoveSortBtnClick = () => {
+    setSort(undefined);
+    setSelected(undefined);
 
     // 현재 시간 기반의 키에 카운터 값을 추가하여 중복 방지
     const uniqueTimestamp = +new Date() + counter;
     setTargetKey(uniqueTimestamp);
-    setDirKey(uniqueTimestamp + 1); // 두 키 간에 중복을 방지하기 위해 +1
+    setPopoverDirKey(uniqueTimestamp + 1); // 두 키 간에 중복을 방지하기 위해 +1
     counter += 2; // 다음 호출을 위해 카운터 증가
   };
+  React.useEffect(() => {
+    setSelected(sort);
+  }, [open]);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -93,39 +80,51 @@ export function SortCombobox({
           aria-expanded={open}
           className=" justify-between"
         >
-          {placeholder}
+          {sort ? sort.label : "정렬하기"}
           {renderIcon()}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col space-y-3 p-3" align="start">
         <div className="flex space-x-2">
-          <Select key={targetKey} onValueChange={setTarget}>
+          <Select
+            key={targetKey}
+            onValueChange={(value: string) => {
+              const selectedSort = sortItems.find(
+                (item) => item.value === value
+              );
+              if (selectedSort) {
+                setSelected({ ...selectedSort, dir: selected?.dir });
+              }
+            }}
+          >
             <SelectTrigger className="w-[280px]">
               <SelectValue
                 placeholder={
-                  target !== ""
-                    ? frameworks?.find(
-                        (framework) => framework.value === target
-                      )?.label
-                    : "컬럼 선택"
+                  selected !== undefined ? selected.label : "컬럼 선택"
                 }
               />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                {frameworks?.map((framework) => (
-                  <SelectItem key={framework.value} value={framework.value}>
-                    {framework.label}
+                {sortItems.map((item) => (
+                  <SelectItem key={item.value} value={item.value}>
+                    {item.label}
                   </SelectItem>
                 ))}
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Select key={dirKey} onValueChange={handleDirectionChange}>
+          <Select
+            key={dirKey}
+            onValueChange={(value: string) => {
+              if (selected)
+                setSelected({ ...selected, dir: value as "asc" | "desc" });
+            }}
+          >
             <SelectTrigger className="w-[280px]">
               <SelectValue
-                placeholder={dir === "asc" ? "오름차순" : "내림차순"}
-              />
+                placeholder={selected?.dir === "desc" ? "내림차순" : "오름차순"}
+              ></SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -137,7 +136,7 @@ export function SortCombobox({
         </div>
         <div className="flex flex-col space-y-2">
           <Button
-            onClick={handleSortClick}
+            onClick={handleSortBtnClick}
             className="w-full flex justify-start bg-transparent text-black hover:text-white hover:bg-cyan-600"
           >
             <PlusIcon className="h-5 w-5 shrink-0 opacity-50 mr-1" />
@@ -145,7 +144,7 @@ export function SortCombobox({
           </Button>
           <Button
             className="w-full py-0 justify-start bg-transparent text-black hover:text-white hover:bg-red-500"
-            onClick={handleRemoveSort}
+            onClick={handleRemoveSortBtnClick}
           >
             <TrashIcon className="h-5 w-5 shrink-0 opacity-50 mr-1" />
             정렬 제거
