@@ -1,4 +1,4 @@
-import { IKeyIndicator } from "./statement";
+import { IBalanceSheet, ICashFlowStatement, IIncomeStatement, IKeyIndicator } from "./statement";
 
 export interface ICompany{
   id: number;
@@ -11,5 +11,10 @@ export interface ICompany{
 
 export interface ICompanyWithKeyIndicator extends ICompany{
   keyIndicator: IKeyIndicator;
+}
 
+export interface ICompanyWithStatements extends ICompany{
+  balanceSheets: IBalanceSheet[];
+  incomeStatements:IIncomeStatement[];
+  cashFlowStatements:ICashFlowStatement[];
 }

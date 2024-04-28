@@ -31,6 +31,12 @@ export interface IApiResponse<T> {
   message: string | null;
 }
 
+export interface IJSendResponse<T> {
+  status: string;
+  data: T;
+  message: string | null;
+}
+
 export interface IFrameItem {
   value: string;
   label: string;

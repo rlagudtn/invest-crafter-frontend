@@ -1,4 +1,4 @@
-import { getCompaniesWithKeyIndicator } from "@/services/stocks";
+"use client";
 import { Company, tableColumns } from "./columns";
 import { DataTable } from "./dataTable";
 import { ICompanyWithKeyIndicator } from "@/types/company";
