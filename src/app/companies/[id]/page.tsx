@@ -6,7 +6,7 @@ export default async function SingleCompanyPage({
   params: { id: number };
 }) {
   return (
-    <div>
+    <div className="flex w-full">
       <SingleCompany id={params.id} />
     </div>
   );

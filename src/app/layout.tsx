@@ -1,8 +1,8 @@
+import Navbar from "@/components/Navbar";
+import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import clsx from "clsx";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const className = "max-w-screen-2xl w-full px-4 md:px-6 lg:px-10";
+  const className = "max-w-screen-2xl mx-auto w-full px-4 md:px-6 lg:px-10";
 
   return (
     <html lang="en">

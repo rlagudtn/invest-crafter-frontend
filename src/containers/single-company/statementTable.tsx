@@ -35,8 +35,8 @@ export function StatementTable<
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div>
-      <Table>
+    <div className="w-full">
+      <Table className="w-full">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>

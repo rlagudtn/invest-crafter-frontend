@@ -16,7 +16,6 @@ export const SingleCompany = ({ id }: SingleCompanyProps) => {
       const res: any = await fetch(url);
       const data: IJSendResponse<ICompanyWithStatements> = await res.json();
       setCompany(data.data);
-      console.log(data);
     };
     fetchSingleCompany();
     //fetching single company by id
@@ -27,8 +26,16 @@ export const SingleCompany = ({ id }: SingleCompanyProps) => {
   }
   return (
     <div>
+      <div className="mt-24 w-64 h-9 justify-start items-end space-x-5 inline-flex">
+        <div className="text-black text-3xl font-bold font-['Pretendard']">
+          {company.name}
+        </div>
+        <div className="text-black text-lg font-medium font-['Pretendard']">
+          {company.symbol}
+        </div>
+      </div>
       <div className=" py-10">
-        <Tabs defaultValue="balance" className="w-[400px]">
+        <Tabs defaultValue="balance" className="w-full">
           <TabsList>
             <TabsTrigger value="balance">재무상태표</TabsTrigger>
             <TabsTrigger value="income">손익계산서</TabsTrigger>
