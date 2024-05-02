@@ -15,6 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -25,12 +27,18 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const router = useRouter();
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-
+  const handleCellClick = (company: any, column: string) => {
+    // 'companyName' 열의 셀 클릭 시에만 로깅
+    if (column === "name" || column === "symbol") {
+      router.push(`/companies/${company.id}`);
+    }
+  };
   return (
     <div className="rounded-md border w-full">
       <Table>
@@ -62,12 +70,19 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(
-                      //
-                      cell.column.columnDef.cell,
-                      cell.getContext()
+                  <TableCell
+                    key={cell.id}
+                    onClick={() =>
+                      handleCellClick(cell.row.original, cell.column.id)
+                    }
+                    className={clsx(
+                      "whitespace-nowrap",
+                      cell.column.id === "name" || cell.column.id === "symbol"
+                        ? "hover:cursor-pointer"
+                        : ""
                     )}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>

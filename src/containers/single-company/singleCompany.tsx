@@ -27,7 +27,7 @@ export const SingleCompany = ({ id }: SingleCompanyProps) => {
   return (
     <div>
       <div className="mt-24 w-64 h-9 justify-start items-end space-x-5 inline-flex">
-        <div className="text-black text-3xl font-bold font-['Pretendard']">
+        <div className="text-black text-3xl font-bold font-['Pretendard'] whitespace-nowrap">
           {company.name}
         </div>
         <div className="text-black text-lg font-medium font-['Pretendard']">

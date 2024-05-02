@@ -1,27 +1,24 @@
 "use client";
+import { ICompanyWithKeyIndicator } from "@/types/company";
+import { IApiResponse, IFilterItem, ISortItem } from "@/types/customTypes";
 import { Company, tableColumns } from "./columns";
 import { DataTable } from "./dataTable";
-import { ICompanyWithKeyIndicator } from "@/types/company";
-import {
-  IApiResponse,
-  IFilterItem,
-  IFrameItem,
-  ISortItem,
-} from "@/types/customTypes";
-import { companyList } from "./data";
 
 import { SearchInput } from "@/components/SearchInput";
 import { useEffect, useState } from "react";
-import { TablePagination } from "./tablePagination";
-import { TableFilter } from "./tableFilter";
 import { filterItems } from "./framework";
+import { TableFilter } from "./tableFilter";
+import { TablePagination } from "./tablePagination";
 
 const transformToCompany = (
   companyWithIndicator: ICompanyWithKeyIndicator
-): Company => ({
-  ...companyWithIndicator,
-  ...companyWithIndicator.keyIndicator,
-});
+): Company => {
+  const { id, ...restKeyIndicator } = companyWithIndicator.keyIndicator;
+  return {
+    ...companyWithIndicator,
+    ...restKeyIndicator,
+  };
+};
 
 export const CompanyList = () => {
   const [page, setPage] = useState(1);
