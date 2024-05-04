@@ -1,13 +1,11 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { List } from "postcss/lib/list";
 import { useEffect, useState } from "react";
 
 interface ITablePaginationProps {
@@ -24,7 +22,7 @@ export const TablePagination = ({
   const maxPageItems = 5; // 한 번에 보여줄 최대 페이지 수
 
   // 현재 페이지가 속한 페이지 그룹의 시작 페이지 계산
-  let groupStart = Math.floor((page - 1) / maxPageItems) * maxPageItems + 1;
+  let groupStart = Math.floor(page / maxPageItems) * maxPageItems;
 
   // 페이지 아이템 생성
   const [paginationItems, setPaginationItems] = useState<JSX.Element[]>([]);
@@ -33,7 +31,7 @@ export const TablePagination = ({
     const paginationList = [];
     for (
       let i = groupStart;
-      i < groupStart + maxPageItems && i <= totalPages;
+      i < groupStart + maxPageItems && i < totalPages;
       i++
     ) {
       paginationList.push(
@@ -46,23 +44,35 @@ export const TablePagination = ({
             }}
             isActive={i === page ? true : false}
           >
-            {i}
+            {i + 1}
           </PaginationLink>
         </PaginationItem>
       );
     }
     setPaginationItems([...paginationList]);
-  }, [page]);
+  }, [page, totalPages]);
   return (
     <Pagination>
       <PaginationContent>
         <PaginationItem>
-          <PaginationPrevious href="#" onClick={() => setPage(page - 1)} />
+          <PaginationPrevious
+            href="#"
+            onClick={(e) => {
+              if (page != 0) setPage(page - 1);
+              e.preventDefault();
+            }}
+          />
         </PaginationItem>
         {paginationItems}
         {page < totalPages && (
           <PaginationItem>
-            <PaginationNext href="#" onClick={() => setPage(page + 1)} />
+            <PaginationNext
+              href="#"
+              onClick={(e) => {
+                if (page < totalPages - 1) setPage(page + 1);
+                e.preventDefault();
+              }}
+            />
           </PaginationItem>
         )}
       </PaginationContent>

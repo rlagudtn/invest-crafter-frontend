@@ -8,6 +8,13 @@ const getCompaniesWithKeyIndicator = async( query:string) => {
   }
   return response.json();
 }
+const getCompaniesByKeyword = async (keyword: string) => {
+  let url: string = `${process.env.NEXT_PUBLIC_SPRING_BACKEND_URL}/stocks?keyword=${keyword}`;
+  const res = await fetch(url)
+  if (!res.ok)
+    throw new Error("Faile to fetch company list by keyword");
+  return res.json();
+}
 const getCompanyWithStatements = async (id: number) => {
   let url = `${process.env.NEXT_PUBLIC_SPRING_BACKEND_URL}/stocks/${id}`;
   const res = await fetch(url);
@@ -17,9 +24,16 @@ const getCompanyWithStatements = async (id: number) => {
   }
   return res.json();
 }
+const getCompanyOverviews = async () => {
+  let url = `${process.env.NEXT_PUBLIC_SPRING_BACKEND_URL}/stocks/overviews`;
+  const res = await fetch(url);
 
+  if (!res.ok) 
+    throw new Error("Fail to fetch company overviews");
+  
+  return res.json();
+}
 export {
-  getCompaniesWithKeyIndicator,
-  getCompanyWithStatements
+  getCompaniesByKeyword, getCompaniesWithKeyIndicator, getCompanyOverviews, getCompanyWithStatements
 };
 

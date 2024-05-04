@@ -1,9 +1,7 @@
-import { Combobox } from "@/components/Combobox";
-import { SortCombobox } from "@/components/SortCombobox";
 import { FilterCombobox } from "@/components/FilterCombobox";
-import { IFilterItem, ISortItem } from "@/types/customTypes";
+import { SortCombobox } from "@/components/SortCombobox";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { dir } from "console";
+import { IFilterItem, ISortItem } from "@/types/customTypes";
 
 interface TableFilterProps {
   sort?: ISortItem;
@@ -24,9 +22,6 @@ export const TableFilter = ({
 }: TableFilterProps) => {
   return (
     <div className="w-full flex-col justify-end items-start gap-5 inline-flex">
-      <div className="text-black text-xl md:text-2xl lg:text-3xl font-bold font-['Pretendard']">
-        미국 기업 리스트
-      </div>
       <div className="w-full justify-start space-x-2 items-start  inline-flex">
         <SortCombobox sort={sort} setSort={setSort} defaultPlaceholder="정렬" />
         <ScrollArea className="whitespace-nowrap">

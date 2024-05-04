@@ -6,9 +6,9 @@ interface NavbarProps {
 }
 const Navbar: React.FC<NavbarProps> = ({ className }) => (
   <nav className={clsx(className, "py-2 sm:py-3 md:py-4 lg:py-5")}>
-    <Link href="/" className="font-bold">
+    <a href="/" className="font-bold">
       Invest Crafter
-    </Link>
+    </a>
     <Link href="/about"></Link>
   </nav>
 );
