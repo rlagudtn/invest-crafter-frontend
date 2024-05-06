@@ -1,20 +1,15 @@
 "use client";
 import { ICompanyWithKeyIndicator } from "@/types/company";
-import {
-  IApiResponse,
-  IFilterItem,
-  IJSendResponse,
-  ISortItem,
-} from "@/types/customTypes";
+import { IApiResponse, IFilterItem, ISortItem } from "@/types/customTypes";
 import { Company, tableColumns } from "./columns";
 import { DataTable } from "./dataTable";
 
 import { SearchInput } from "@/components/SearchInput";
 import { transformToCompany } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { TablePagination } from "./TablePagination";
 import { filterItems } from "./framework";
 import { TableFilter } from "./tableFilter";
-import { TablePagination } from "./tablePagination";
 
 export const CompanyList = () => {
   const [page, setPage] = useState(0);
@@ -60,17 +55,6 @@ export const CompanyList = () => {
         used: false,
       }))
     );
-
-    //모든 기업 정보 fetch(기업명, 심볼 등 간단한 정보만)
-    async function getOverviews() {
-      const res: any = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/companies/overviews`
-      );
-      const data: IJSendResponse<Company[]> = await res.json();
-
-      setCompanyOverviews(data.data);
-    }
-    // getOverviews();
   }, []);
 
   return (
