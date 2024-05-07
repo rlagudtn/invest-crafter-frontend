@@ -10,10 +10,10 @@
 <br/>
 
 ### 주요 기능
-1. 미국 기업 핵심 지표 리스트 및 정렬,필터 기능 제공
-2. 관심 기업 북마크
+1. 미국 기업 핵심 지표 리스트 및 정렬,필터 기능(완료)
+2. 관심 기업 북마크(진행 예정)
 <br/>
 <br/>
 
 ### UI
-![홈 화면](https://github.com/rlagudtn/invest-crafter-frontend/assets/34295144/8c0a88de-7e56-4bc1-915d-bc4b32b49f86)
+<img width="1265" alt="스크린샷 2024-04-07 오후 4 03 08" src="https://github.com/rlagudtn/invest-crafter-frontend/assets/34295144/1aac60a5-0e3f-4dc2-be6e-b5a350d732bd">
