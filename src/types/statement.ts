@@ -47,6 +47,6 @@ export interface ICashFlowStatement {
   financingActivitiesCashFlow: number;
   freeCashFlow: number;
   dividendsPaid: number;
-  totalEquity: number | null;
+  // totalEquity: number | null;
   url: string;
 }
